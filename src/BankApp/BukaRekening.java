@@ -27,7 +27,7 @@ public class BukaRekening extends Bank {
 		String currentLine1;
 		String f1_Nama = "";//I initialize the variablesto avoid errors
         String f2_Alamat = "";
-        int f3_MobilePhone = -1;
+        String f3_MobilePhone = "";
 		String f4_Username = "";
 		String f5_Password = "";
         double f6_Deposit = -1;
@@ -39,34 +39,27 @@ public class BukaRekening extends Bank {
         System.out.print("Masukkan alamat rumah\t: ");
         f2_Alamat = scan.nextLine();
 
-        do { //this is a do-while loop in which I check for valid input (must me integer) and i loop through the txt file again to check if input is duplicate
+        do {
 			duplicate = false;
-			valid = true;
-			System.out.print("Masukkan nomor ponsel\t: ");
-			try {
-			    f3_MobilePhone = Integer.parseInt(scan.nextLine());
-			} catch (NumberFormatException e) {
-				valid = false;
-				System.out.println("Phone must be number.");
-			    //e.printStackTrace();
-			}
+            System.out.print("Masukkan nomor ponsel\t: ");
+            f3_MobilePhone = scan.next();
 			while ((currentLine1 = reader1.readLine()) != null) { //check for duplicate
-				String[] words1=currentLine1.split(",");
-				if (words1[2].equals(String.valueOf(f3_MobilePhone))) {
-                    duplicate=true;
-                    System.out.println("Phone must be unique among the contacts.");
+				String[] words1 = currentLine1.split(",");
+				if (words1[2].equals(f3_MobilePhone)) {
+					duplicate = true;
+					System.out.println("Phone must be unique among the contacts.");
 				}
 			}
 			reader1 = new BufferedReader(new FileReader(file1));
-        } while (duplicate == true || valid == false);
-        
+		} while (duplicate == true);
+
         do {
 			duplicate = false;
-            System.out.println("Atur username\t\t: ");
+            System.out.print("Atur username\t\t: ");
             f4_Username = scan.next();
 			while ((currentLine1 = reader1.readLine()) != null) { //check for duplicate
 				String[] words1 = currentLine1.split(",");
-				if (words1[4].equals(f4_Username)) {
+				if (words1[3].equals(f4_Username)) {
 					duplicate = true;
 					System.out.println("Username must be unique.");
 				}
@@ -74,7 +67,7 @@ public class BukaRekening extends Bank {
 			reader1 = new BufferedReader(new FileReader(file1));
 		} while (duplicate == true);
 
-        System.out.println("Atur password (minimal 8 chars; minimum 1 digit, 1 lowercase, 1 uppercase, 1 special character[!@#$%^&*_]) :");
+        System.out.print("Atur password (minimal 8 chars; minimum 1 digit, 1 lowercase, 1 uppercase, 1 special character[!@#$%^&*_]) :");
         f5_Password = scan.next(); scan.nextLine();
         while (!f5_Password.matches((("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{8,}")))) {
             System.out.println("Password tidak memenuhi kriteria.\nAtur ulang :");
@@ -88,11 +81,11 @@ public class BukaRekening extends Bank {
         }
         f6_Deposit = scan.nextDouble();
 
-        if (f1_Nama == "" || f2_Alamat == "" || f3_MobilePhone == -1 || f4_Username == "" || f5_Password == "" || f6_Deposit == -1) {//i check that all variables have a valid attribute assigned
+        if (f1_Nama == "" || f2_Alamat == "" || f3_MobilePhone == "" || f4_Username == "" || f5_Password == "" || f6_Deposit == -1) {//i check that all variables have a valid attribute assigned
 			System.out.println("You gave false inputs, adding new account wasn't successful: ");
 		}
 		else { //if everything is correct i build a string
-			str = f1_Nama + "," + f2_Alamat + "," + String.valueOf(f3_MobilePhone) + "," + f4_Username + "," + f5_Password + "," + String.valueOf(f6_Deposit);
+			str = f1_Nama + "," + f2_Alamat + "," + f3_MobilePhone + "," + f4_Username + "," + f5_Password + "," + String.valueOf(f6_Deposit);
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file1, true)));//with these code I add a line at the bottom of the file
 			out.println(str);
 			out.close();
