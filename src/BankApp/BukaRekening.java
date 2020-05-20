@@ -25,27 +25,27 @@ public class BukaRekening extends Bank {
 		Scanner scan = new Scanner(System.in);
 		boolean duplicate, valid;
 		String currentLine1;
-		String f1_Nama = "";//I initialize the variablesto avoid errors
-        String f2_Alamat = "";
-        String f3_MobilePhone = "";
-		String f4_Username = "";
-		String f5_Password = "";
-        double f6_Deposit = -1;
-        String str;
+		String f0_Nama = "";//I initialize the variables to avoid errors
+        String f1_Alamat = "";
+        String f2_MobilePhone = "";
+		String f3_Username = "";
+		String f4_Password = "";
+        double f5_Deposit = -1;
+        String writeToFile;
         
         System.out.print("Masukkan nama\t\t: ");
-        f1_Nama = scan.nextLine();
+        f0_Nama = scan.nextLine();
 
         System.out.print("Masukkan alamat rumah\t: ");
-        f2_Alamat = scan.nextLine();
+        f1_Alamat = scan.nextLine();
 
         do {
 			duplicate = false;
             System.out.print("Masukkan nomor ponsel\t: ");
-            f3_MobilePhone = scan.next();
+            f2_MobilePhone = scan.next();
 			while ((currentLine1 = reader1.readLine()) != null) { //check for duplicate
 				String[] words1 = currentLine1.split(",");
-				if (words1[2].equals(f3_MobilePhone)) {
+				if (words1[2].equals(f2_MobilePhone)) {
 					duplicate = true;
 					System.out.println("Phone must be unique among the contacts.");
 				}
@@ -56,10 +56,10 @@ public class BukaRekening extends Bank {
         do {
 			duplicate = false;
             System.out.print("Atur username\t\t: ");
-            f4_Username = scan.next();
+            f3_Username = scan.next();
 			while ((currentLine1 = reader1.readLine()) != null) { //check for duplicate
 				String[] words1 = currentLine1.split(",");
-				if (words1[3].equals(f4_Username)) {
+				if (words1[3].equals(f3_Username)) {
 					duplicate = true;
 					System.out.println("Username must be unique.");
 				}
@@ -68,10 +68,10 @@ public class BukaRekening extends Bank {
 		} while (duplicate == true);
 
         System.out.print("Atur password (minimal 8 chars; minimum 1 digit, 1 lowercase, 1 uppercase, 1 special character[!@#$%^&*_]) :");
-        f5_Password = scan.next(); scan.nextLine();
-        while (!f5_Password.matches((("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{8,}")))) {
+        f4_Password = scan.next(); scan.nextLine();
+        while (!f4_Password.matches((("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_]).{8,}")))) {
             System.out.println("Password tidak memenuhi kriteria.\nAtur ulang :");
-            f5_Password = scan.next();
+            f4_Password = scan.next();
         }
 
         System.out.print("Deposit awal\t: ");
@@ -79,24 +79,20 @@ public class BukaRekening extends Bank {
             System.out.println("Nominal deposit tidak valid!\nMasukkan ulang\t:");
             scan.nextLine();
         }
-        f6_Deposit = scan.nextDouble();
+        f5_Deposit = scan.nextDouble();
 
-        if (f1_Nama == "" || f2_Alamat == "" || f3_MobilePhone == "" || f4_Username == "" || f5_Password == "" || f6_Deposit == -1) {//i check that all variables have a valid attribute assigned
+        if (f0_Nama == "" || f1_Alamat == "" || f2_MobilePhone == "" || f3_Username == "" || f4_Password == "" || f5_Deposit == -1) {//i check that all variables have a valid attribute assigned
 			System.out.println("You gave false inputs, adding new account wasn't successful: ");
-		}
-		else { //if everything is correct i build a string
-			str = f1_Nama + "," + f2_Alamat + "," + f3_MobilePhone + "," + f4_Username + "," + f5_Password + "," + String.valueOf(f6_Deposit);
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file1, true)));//with these code I add a line at the bottom of the file
-			out.println(str);
+		} else { // if everything is correct i build a string
+			writeToFile = f0_Nama + "," + f1_Alamat + "," + f2_MobilePhone + "," + f3_Username + "," + f4_Password + "," + String.valueOf(f5_Deposit);
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file1, true))); //with these code I add a line at the bottom of the file
+			out.println(writeToFile);
 			out.close();
-		}
-		//input.close();
+        }
+        
+        //input.close();
 		//writer1.close();
 		writer.close(); 
         reader1.close(); 
-        
-        /* nominal = scan.nextDouble(); scan.nextLine();
-        customer = new Customer(namaPengguna, password, name, alamatRumah, notelp, nominal, new Date());
-        bank.customerMap.put(namaPengguna, customer); */
     }
 }
