@@ -21,17 +21,33 @@ public class BukaRekening extends Bank {
 		BufferedReader reader1 = new BufferedReader(new FileReader(file1)); // we get reader for the file
 		OutputStreamWriter writer1 = new OutputStreamWriter(
                 new FileOutputStream(System.getProperty("user.dir")+"/customer.txt", true), "UTF-8");
-		BufferedWriter writer = new BufferedWriter(writer1);//this is a way to get a writer for th specific file
+		BufferedWriter bufferedWriter1 = new BufferedWriter(writer1); // this is a way to get a writer for the specific file
+
+		File file2 = new File(System.getProperty("user.dir")+"/saldo.txt");// we get the file
+		BufferedReader reader2 = new BufferedReader(new FileReader(file2)); // we get reader for the file
+		OutputStreamWriter writer2 = new OutputStreamWriter(
+                new FileOutputStream(System.getProperty("user.dir")+"/saldo.txt", true), "UTF-8");
+		BufferedWriter bufferedWriter2 = new BufferedWriter(writer2); // this is a way to get a writer for the specific file
+
+		File file3 = new File(System.getProperty("user.dir")+"/transactionLog.txt");// we get the file
+		BufferedReader reader3 = new BufferedReader(new FileReader(file3)); // we get reader for the file
+		OutputStreamWriter writer3 = new OutputStreamWriter(
+                new FileOutputStream(System.getProperty("user.dir")+"/transactionLog.txt", true), "UTF-8");
+		BufferedWriter bufferedWriter3 = new BufferedWriter(writer3); // this is a way to get a writer for the specific file
+
 		Scanner scan = new Scanner(System.in);
 		boolean duplicate, valid;
-		String currentLine1;
-		String f0_Nama = "";//I initialize the variables to avoid errors
-        String f1_Alamat = "";
-        String f2_MobilePhone = "";
-		String f3_Username = "";
-		String f4_Password = "";
-        double f5_Deposit = -1;
-        String writeToFile;
+		// I initialize the variables to avoid errors
+		String currentLine1,
+			f0_Nama = "",
+        	f1_Alamat = "",
+        	f2_MobilePhone = "",
+			f3_Username = "",
+			f4_Password = "", 
+			writeToSaveUserInput,
+			writeToAddDeposit, 
+			writeToTransactionLog;
+		double f5_Deposit = -1;
         
         System.out.print("Masukkan nama\t\t: ");
         f0_Nama = scan.nextLine();
@@ -84,15 +100,30 @@ public class BukaRekening extends Bank {
         if (f0_Nama == "" || f1_Alamat == "" || f2_MobilePhone == "" || f3_Username == "" || f4_Password == "" || f5_Deposit == -1) {//i check that all variables have a valid attribute assigned
 			System.out.println("You gave false inputs, adding new account wasn't successful: ");
 		} else { // if everything is correct i build a string
-			writeToFile = f0_Nama + "," + f1_Alamat + "," + f2_MobilePhone + "," + f3_Username + "," + f4_Password + "," + String.valueOf(f5_Deposit);
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file1, true))); //with these code I add a line at the bottom of the file
-			out.println(writeToFile);
-			out.close();
+			writeToSaveUserInput = f0_Nama + "," + f1_Alamat + "," + f2_MobilePhone + "," + f3_Username + "," + f4_Password;
+			PrintWriter out1 = new PrintWriter(new BufferedWriter(new FileWriter(file1, true))); // with these code I add a line at the bottom of the file
+			out1.println(writeToSaveUserInput);
+
+			writeToAddDeposit = f3_Username + "," + f5_Deposit;
+			PrintWriter out2 = new PrintWriter(new BufferedWriter(new FileWriter(file2, true))); // with these code I add a line at the bottom of the file
+			out2.println(writeToAddDeposit);
+
+			writeToTransactionLog = f3_Username + "," + "Initial deposit - IDR " + f5_Deposit + "," + new Date();
+			PrintWriter out3 = new PrintWriter(new BufferedWriter(new FileWriter(file3, true))); // with these code I add a line at the bottom of the file
+			out3.println(writeToTransactionLog);
+
+			out1.close();
+			out2.close();
+			out3.close();
         }
         
         //input.close();
 		//writer1.close();
-		writer.close(); 
-        reader1.close(); 
+		writer1.close(); 
+		reader1.close(); 
+		writer2.close(); 
+		reader2.close();
+		writer3.close(); 
+        reader3.close();
     }
 }
