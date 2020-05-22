@@ -41,20 +41,19 @@ public class Login extends Bank {
 
         // From address book mgmt
         while ((currentLine = reader1.readLine()) != null) {
-            String[] info = currentLine.split(",");
 			if (!first) {
-				fields = currentLine.split(",");
+				fields = currentLine.split(";");
 				first = true;
 			} else { // only if both of the user's inputs (name and surname) match a contact then i add this contact's info to an array
-                // Original Condition
+                String[] info = currentLine.split(";");
 				if (info[3].equals(f0_Username) && info[4].equals(f1_Password)) {
                     while (true) {
                         System.out.println("\n-------------------");
                         System.out.println("W  E  L  C  O  M  E");
                         System.out.println("-------------------\n");
                         System.out.println("Selamat datang di aplikasi Bank PTI, " + info[0] + "!");
-                        System.out.println("1. Deposit.");
-                        System.out.println("2. Transfer.");
+                        System.out.println("1. Setor tunai.");
+                        System.out.println("2. Tarik tunai.");
                         System.out.println("3. Riwayat transaksi.");
                         System.out.println("4. Cek saldo.");
                         System.out.println("5. Informasi pengguna.");
@@ -64,17 +63,22 @@ public class Login extends Bank {
                         scan.nextLine();
                         switch (pilihan) {
                             case 1:
-                                System.out.println("Tes1");                                
-                                // System.out.print("Masukkan nominal\t: ");
-                                // while (!scan.hasNextDouble()) {
-                                //     System.out.println("Nominal deposit tidak valid!\nMasukkan ulang\t:");
-                                //     scan.nextLine();
-                                // }
-                                // double nominal = scan.nextDouble(); scan.nextLine();
-                                // Transaksi.setorTunai(f0_Username, nominal, new Date());
+                                System.out.print("Masukkan nominal\t: ");
+                                while (!scan.hasNextDouble()) {
+                                    System.out.println("Nominal tidak valid!\nMasukkan ulang\t:");
+                                    scan.nextLine();
+                                }
+                                double nominalSetor = scan.nextDouble(); scan.nextLine();
+                                Transaksi.setorTunai(f0_Username, nominalSetor, new Date());
                                 break;
                             case 2:
-                                System.out.println("Tes2");
+                                System.out.print("Masukkan nominal\t: ");
+                                while (!scan.hasNextDouble()) {
+                                    System.out.println("Nominal tidak valid!\nMasukkan ulang\t:");
+                                    scan.nextLine();
+                                }
+                                double nominalTarik = scan.nextDouble(); scan.nextLine();
+                                Transaksi.tarikTunai(f0_Username, nominalTarik, new Date());
                                 /* System.out.print("Username tujuan\t: ");
                                 namaPengguna = scan.next();
                                 scan.nextLine();
@@ -103,21 +107,6 @@ public class Login extends Bank {
                             case 4:
                                 System.out.println("\n----Cek Saldo----");
                                 Transaksi.cekSaldo(f0_Username);
-                                // first = false;
-                                // fields = new String[0];
-                                // while ((currentLine2 = reader2.readLine()) != null) {
-                                //     if (!first) {
-                                //         fields = currentLine2.split(",");
-                                //         first = true;
-                                //     } else {
-                                //         if (info[0].equals(f0_Username)) {
-                                //             while (true) {                        
-                                //                 String[] infoSaldo = currentLine2.split(",");
-                                //                 System.out.println("Saldo\t: " + infoSaldo[1]);
-                                //             }
-                                //         }
-                                //     }
-                                // }
                                 break;
                             case 5:
                                 System.out.println("\n----Informasi Akun----");
@@ -141,77 +130,5 @@ public class Login extends Bank {
 		System.out.println("-------------------");
         reader1.close();
         reader2.close();
-
-        // Original File
-        /* if (bank.customerMap.containsKey(namaPengguna)) {
-            customer = bank.customerMap.get(namaPengguna);
-            if (customer.password.equals(password)) {
-                while (true) {
-                    System.out.println("\n-------------------");
-                    System.out.println("W  E  L  C  O  M  E");
-                    System.out.println("-------------------\n");
-                    System.out.println("1. Deposit.");
-                    System.out.println("2. Transfer.");
-                    System.out.println("3. Riwayat transaksi.");
-                    System.out.println("4. Informasi pengguna.");
-                    System.out.println("5. LOG OUT.");
-                    System.out.print("\nEnter your pilihan : ");
-                    pilihan = scan.nextInt();
-                    scan.nextLine();
-                    switch (pilihan) {
-                        case 1:
-                            System.out.print("Masukkan nominal\t: ");
-                            while (!scan.hasNextDouble()) {
-                                System.out.println("Nominal deposit tidak valid!\nMasukkan ulang\t:");
-                                scan.nextLine();
-                            }
-                            nominal = scan.nextDouble();
-                            scan.nextLine();
-                            customer.deposit(nominal,new Date());
-                            break;
-                        case 2:
-                            System.out.print("Username tujuan\t: ");
-                            namaPengguna = scan.next();
-                            scan.nextLine();
-                            System.out.println("Nominal transfer\t: ");
-                            while (!scan.hasNextDouble()) {
-                                System.out.println("Nominal transfer tidak valid!\nMasukkan ulang\t: ");
-                                scan.nextLine();
-                            }
-                            nominal = scan.nextDouble(); scan.nextLine();
-                            if (nominal > 300000) {
-                                System.out.println("Batas transfer terlampaui!\nHarap hubungi customer service BMS.");
-                                break;
-                            }
-                            if (bank.customerMap.containsKey(namaPengguna)) {
-                                Customer payee = bank.customerMap.get(namaPengguna);
-                                payee.deposit(nominal,new Date());
-                                customer.withdraw(nominal,new Date());
-                            } else {
-                                System.out.println("Username tidak ditemukan!");
-                            }
-                            break;
-                        case 3:
-                            for (String transaksi : customer.transaksi) {
-                                System.out.println(transaksi);
-                            }
-                            break;
-                        case 4:
-                            System.out.println("Nama Pemegang Rekening\t: "+customer.name);
-                            System.out.println("Alamat Pemegang Rekening\t: "+customer.alamatRumah);
-                            System.out.println("Nomor Ponsel Pemegang Rekening\t: "+customer.notelp);
-                            break;
-                        case 5:
-                            continue outer;
-                        default:
-                            System.out.println("Input tidak valid!");
-                    }
-                }
-            } else {
-                System.out.println("Username/password salah!");
-            }
-        } else {
-            System.out.println("Username/password salah!");
-        } */
     }
 }
