@@ -110,37 +110,37 @@ public class BukaRekening extends Bank {
 	}
 	f5_Deposit = scan.nextDouble(); scan.nextLine();
 
-		// CEK KONDISI JIKA ADA FIELD YANG KOSONG MAKA TIDAK VALID
-        	if (f0_Nama == "" || f1_Alamat == "" || f2_MobilePhone == "" || f3_Username == "" || f4_Password == "" || f5_Deposit == -1) {//i check that all variables have a valid attribute assigned
-			System.out.println("Input tidak valid! Gagal melakukan pendaftaran.\nSilakan daftar ulang, terima kasih.");
-		} else { // AKSI JIKA SEMUA FIELD TERISI
-			// MENAMBAHKAN DATA PENGGUNA BARU KE FILE customer.txt
-			writeToSaveUserInput = f0_Nama + ";" + f1_Alamat + ";" + f2_MobilePhone + ";" + f3_Username + ";" + f4_Password;
-			PrintWriter out1 = new PrintWriter(new BufferedWriter(new FileWriter(file1, true))); // with these code I add a line at the bottom of the file
-			out1.println(writeToSaveUserInput);
+	// CEK KONDISI JIKA ADA FIELD YANG KOSONG MAKA TIDAK VALID
+	if (f0_Nama == "" || f1_Alamat == "" || f2_MobilePhone == "" || f3_Username == "" || f4_Password == "" || f5_Deposit == -1) {//i check that all variables have a valid attribute assigned
+		System.out.println("Input tidak valid! Gagal melakukan pendaftaran.\nSilakan daftar ulang, terima kasih.");
+	} else { // AKSI JIKA SEMUA FIELD TERISI
+		// MENAMBAHKAN DATA PENGGUNA BARU KE FILE customer.txt
+		writeToSaveUserInput = f0_Nama + ";" + f1_Alamat + ";" + f2_MobilePhone + ";" + f3_Username + ";" + f4_Password;
+		PrintWriter out1 = new PrintWriter(new BufferedWriter(new FileWriter(file1, true))); // with these code I add a line at the bottom of the file
+		out1.println(writeToSaveUserInput);
 
-			// MEMPERBARUI SALDO KE FILE saldo.txt
-			writeToAddDeposit = f3_Username + ";" + f5_Deposit;
-			PrintWriter out2 = new PrintWriter(new BufferedWriter(new FileWriter(file2, true))); // with these code I add a line at the bottom of the file
-			out2.println(writeToAddDeposit);
+		// MEMPERBARUI SALDO KE FILE saldo.txt
+		writeToAddDeposit = f3_Username + ";" + f5_Deposit;
+		PrintWriter out2 = new PrintWriter(new BufferedWriter(new FileWriter(file2, true))); // with these code I add a line at the bottom of the file
+		out2.println(writeToAddDeposit);
 
-			// MENAMBAHKAN LOG DEPOSIT KE FILE transactionLog.txt
-			writeToTransactionLog = f3_Username + ";" + "Initial deposit - " + currencyFormat.format(f5_Deposit) + ";" + new Date();
-			PrintWriter out3 = new PrintWriter(new BufferedWriter(new FileWriter(file3, true))); // with these code I add a line at the bottom of the file
-			out3.println(writeToTransactionLog);
+		// MENAMBAHKAN LOG DEPOSIT KE FILE transactionLog.txt
+		writeToTransactionLog = f3_Username + ";" + "Initial deposit - " + currencyFormat.format(f5_Deposit) + ";" + new Date();
+		PrintWriter out3 = new PrintWriter(new BufferedWriter(new FileWriter(file3, true))); // with these code I add a line at the bottom of the file
+		out3.println(writeToTransactionLog);
 
-			// SUCCESS
-			System.out.println("BERHASIL TERDAFTAR.");
-			// Close
-			out1.close();
-			out2.close();
-			out3.close();
-		}
-		writer1.close();
-		writer2.close();
-		reader1.close();
-		writer3.close();
-		reader2.close();
+		// SUCCESS
+		System.out.println("BERHASIL TERDAFTAR.");
+		// Close
+		out1.close();
+		out2.close();
+		out3.close();
+	}
+	writer1.close();
+	writer2.close();
+	reader1.close();
+	writer3.close();
+	reader2.close();
         reader3.close();
     }
 }
