@@ -1,4 +1,0 @@
-Nama,Alamat,Mobile,Username,Password,Deposit
-Danis,Mejing,6285155112929,dnnurman_08,HakeHokyA_JAGO9,100000
-May Danisa,Gunung Kidul,8112900,mayDanisa99,GunKidHoyaa_90,190000.0
-Giska,Mlati,8900182,giskaroja,GhwjkIua_991,180000.0
