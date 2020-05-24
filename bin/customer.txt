@@ -1,0 +1,2 @@
+Nama;Alamat;Mobile;Username;Password;Deposit
+Danis Nurmansyah;Mejing Kidul;08123456789;DanisNurman;Danis_123

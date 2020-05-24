@@ -1,0 +1,8 @@
+Username;Log;Date
+DanisNurman;Initial deposit - IDR 200000.0;Sat May 23 04:29:53 WIB 2020
+DanisNurman;Rp10.000,00 credited to your account. Balance - Rp210.000,00;Sat May 23 05:18:54 WIB 2020
+DanisNurman;Rp25.000,00 debited from your account. Balance - Rp185.000,00;Sat May 23 05:20:44 WIB 2020
+DanisNurman;Rp10.000,00 debited from your account. Balance - Rp175.000,00;Sat May 23 05:20:58 WIB 2020
+nurs;Initial deposit - IDR 29000.0;Sat May 23 07:40:15 WIB 2020
+DanisNurman;Rp200.000,00 credited to your account. Balance - Rp375.000,00;Sat May 23 07:58:12 WIB 2020
+DanisNurman;Rp150.000,00 debited from your account. Balance - Rp225.000,00;Sat May 23 07:58:21 WIB 2020
